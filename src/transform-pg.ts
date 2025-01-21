@@ -25,6 +25,8 @@ export function transformPgResult(pgResult: any) {
         name: header.name,
         originalType: header.dataTypeID.toString(),
         type: ColumnType.TEXT,
+        columnId: header.columnID,
+        tableId: header.tableID,
       }),
       rows: pgResult.rows,
     }),

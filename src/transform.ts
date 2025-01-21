@@ -10,6 +10,12 @@ interface ArrayBasedTransformProps<HeaderType> {
     name: string;
     type?: number;
     originalType: string | null;
+    schema?: string | undefined;
+    table?: string | undefined;
+    originalName?: string | undefined;
+    primaryKey?: boolean | undefined;
+    columnId?: number | undefined; // for Postgres
+    tableId?: number | undefined; // for Postgres
   };
   transformValue?: (value: unknown, header: ColumnHeader) => unknown;
 }
@@ -24,7 +30,17 @@ export function transformArrayBasedResult<HeaderType>({
   const usedColumnName = new Set();
 
   const headerMap: ColumnHeader[] = headers.map((header, headerIdx) => {
-    const { name, type, originalType } = headersMapper(header, headerIdx);
+    const {
+      name,
+      type,
+      originalType,
+      schema,
+      table,
+      originalName,
+      primaryKey,
+      columnId,
+      tableId,
+    } = headersMapper(header, headerIdx);
     let finalColumnName = name;
 
     // We got the duplicated column name, let try to find it a new name
@@ -45,7 +61,18 @@ export function transformArrayBasedResult<HeaderType>({
     }
 
     usedColumnName.add(finalColumnName);
-    return { name: finalColumnName, displayName: name, type, originalType };
+    return {
+      name: finalColumnName,
+      displayName: name,
+      type,
+      originalType,
+      schema,
+      table,
+      originalName,
+      primaryKey,
+      columnId,
+      tableId,
+    };
   });
 
   // Mapping the data

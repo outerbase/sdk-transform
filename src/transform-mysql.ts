@@ -167,10 +167,39 @@ export function transformMySQLResult(mysqlResult: any) {
       headers: fieldsets,
       headersMapper: (header) => {
         const field = header as unknown as ColumnDefinition;
+
+        const tableName = field._orgTableLength
+          ? field._buf
+              .subarray(
+                field._orgTableStart,
+                field._orgTableStart + field._orgTableLength
+              )
+              .toString()
+          : undefined;
+
+        const databaseNameLength = field._buf[13];
+        const databaseName =
+          databaseNameLength > 0
+            ? field._buf.subarray(14, 14 + databaseNameLength).toString()
+            : undefined;
+
+        const fieldName = field._orgNameLength
+          ? field._buf
+              .subarray(
+                field._orgNameStart,
+                field._orgNameStart + field._orgNameLength
+              )
+              .toString()
+          : undefined;
+
         return {
           name: field.name,
           type: mapDataType(field.type),
           originalType: mapDataName[field.type],
+          schema: databaseName,
+          table: tableName,
+          originalName: fieldName,
+          primaryKey: !!(field.flags & 0x2),
         };
       },
       transformValue(value, header) {
