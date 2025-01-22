@@ -33,6 +33,36 @@ export interface ColumnHeader {
    * If not provided, the client should infer the type from the data.
    */
   type?: ColumnType;
+
+  /**
+   * Database name or shcema name
+   */
+  schema?: string;
+
+  /**
+   * The actual table name
+   */
+  table?: string;
+
+  /**
+   * The original column name returned from database driver.
+   */
+  originalName?: string;
+
+  /**
+   * Indicate if this column is a primary key.
+   */
+  primaryKey?: boolean;
+
+  /**
+   * The column id in the table. This is useful for Postgres.
+   */
+  columnId?: number;
+
+  /**
+   * The table id in the database. This is useful for Postgres.
+   */
+  tableId?: number;
 }
 
 export interface ResultSet {
