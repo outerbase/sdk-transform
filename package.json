@@ -3,7 +3,9 @@
   "version": "1.0.1",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepack": "npm run build",
+    "publish-npm-module": "npm publish --access public"
   },
   "files": [
     "dist/*"
