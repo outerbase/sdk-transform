@@ -1,4 +1,5 @@
 import { transformArrayBasedResult } from "./transform";
+import { ResultSet } from "./type";
 
 interface CloudflareResult {
   results: {
@@ -14,7 +15,7 @@ interface CloudflareResult {
   };
 }
 
-export function transformCloudflareD1(cloudflareResult: any) {
+export function transformCloudflareD1(cloudflareResult: any): ResultSet {
   const result = cloudflareResult as CloudflareResult;
 
   return {

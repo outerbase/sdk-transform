@@ -1,6 +1,6 @@
 import type { FieldDef, QueryArrayResult } from "pg";
 import { transformArrayBasedResult } from "./transform";
-import { ColumnType } from "./type";
+import { ColumnType, ResultSet } from "./type";
 
 export function setPgParser(pgTypes: any) {
   pgTypes.setTypeParser(pgTypes.builtins.TIME, (timeStr: any) => timeStr);
@@ -15,7 +15,7 @@ export function setPgParser(pgTypes: any) {
   pgTypes.setTypeParser(pgTypes.builtins.JSONB, (json: any) => json);
 }
 
-export function transformPgResult(pgResult: any) {
+export function transformPgResult(pgResult: any): ResultSet {
   const r = pgResult as QueryArrayResult;
 
   return {

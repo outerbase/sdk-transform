@@ -1,6 +1,6 @@
 import type { QueryResult, FieldPacket } from "mysql2";
 
-import { ColumnType } from "./type";
+import { ColumnType, ResultSet } from "./type";
 import { transformArrayBasedResult } from "./transform";
 
 enum MySQLType {
@@ -141,7 +141,7 @@ interface ColumnDefinition {
   flags: number;
 }
 
-export function transformMySQLResult(mysqlResult: any) {
+export function transformMySQLResult(mysqlResult: any): ResultSet {
   const typedResult = mysqlResult as [QueryResult, FieldPacket[]];
   const [result, fieldsets] = typedResult;
 
