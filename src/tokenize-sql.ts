@@ -1,9 +1,4 @@
-import { SupportedDialect } from "./type";
-
-interface Token {
-  type: string;
-  value: string;
-}
+import { SupportedDialect, Token } from "./type";
 
 const tokenTypes: {
   type: string;
