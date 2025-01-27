@@ -71,3 +71,5 @@ export interface ResultSet {
   stat: ResultStat;
   lastInsertRowid?: number;
 }
+
+export type SupportedDialect = "sqlite" | "mysql" | "postgres" | "dolt";
