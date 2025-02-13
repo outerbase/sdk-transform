@@ -1,11 +1,13 @@
-import { Token } from "./type";
+import { SupportedDialect, Token } from "./type";
 import { escapeSqlValue } from "./escapeSqlValue";
+import { tokenizeSql } from "./tokenize-sql";
 
 export function fillVariables(
-  tokens: Token[],
-  variables: Record<string, unknown>
-): Token[] {
-  return tokens.map((token) => {
+  sql: string,
+  variables: object,
+  dialect: SupportedDialect
+): string {
+  const tokens = tokenizeSql(sql, dialect).map((token) => {
     let placeholder = "";
     if (token.type === "PLACEHOLDER") {
       placeholder = token.value.slice(1);
@@ -25,4 +27,5 @@ export function fillVariables(
       value: escapeSqlValue(variableValue),
     };
   });
+  return tokens.map((token) => token.value).join("");
 }
