@@ -67,7 +67,7 @@ const tokenTypes: {
   {
     type: "OPERATOR",
     findToken: (input) => {
-      const regex = /^(=|<>|!=|<|>|<=|>=|\+|-|\*|\/)/;
+      const regex = /^(=|<>|!=|<|>|<=|>=|\+|-|\*|\/|::)/;
       const match = regex.exec(input);
       return match?.[0] ?? null;
     },
