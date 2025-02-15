@@ -18,9 +18,7 @@ export function fillVariables(
 
     const variableValue = variables[placeholder];
 
-    if (variableValue === undefined) {
-      throw new Error(`Variable ${placeholder} is not defined`);
-    }
+    if (variableValue === undefined) return token;
 
     return {
       type: token.type,
