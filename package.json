@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsup",
     "prepack": "npm run build",
-    "publish-npm-module": "npm publish --access public"
+    "publish-npm-module": "npm publish --access public",
+    "test": "jest"
   },
   "files": [
     "dist/*"
@@ -16,9 +17,13 @@
   "description": "",
   "devDependencies": {
     "@libsql/client": "^0.14.0",
+    "@types/jest": "^29.5.14",
     "@types/pg": "^8.11.10",
+    "jest": "^29.7.0",
     "mysql2": "^3.12.0",
     "pg": "^8.13.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
     "typescript": "^5.7.3"
   }
