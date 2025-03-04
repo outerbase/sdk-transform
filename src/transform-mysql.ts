@@ -215,6 +215,8 @@ export function transformMySQLResult(mysqlResult: any): ResultSet {
         ) {
           if (typeof value === "string") {
             return value;
+          } else if (value === null) {
+            return null;
           } else {
             return [...new Uint8Array(value as Buffer)];
           }
