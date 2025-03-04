@@ -195,7 +195,7 @@ export function transformMySQLResult(mysqlResult: any): ResultSet {
         return {
           name: field.name,
           type: mapDataType(field.type),
-          originalType: mapDataName[field.type],
+          originalType: mapDataName[field.type].toLowerCase(),
           schema: databaseName,
           table: tableName,
           originalName: fieldName,
@@ -203,20 +203,22 @@ export function transformMySQLResult(mysqlResult: any): ResultSet {
         };
       },
       transformValue(value, header) {
-        if (header.originalType === "json") {
-          return JSON.stringify(value as string);
+        const normalizedColumnType = header.originalType.toLowerCase();
+
+        if (normalizedColumnType === "json") {
+          return value ? JSON.stringify(value as string) : value;
         } else if (
-          header.originalType === "blob" ||
-          header.originalType === "medium_blob" ||
-          header.originalType === "long_blob" ||
-          header.originalType === "tiny_blob"
+          normalizedColumnType === "blob" ||
+          normalizedColumnType === "medium_blob" ||
+          normalizedColumnType === "long_blob" ||
+          normalizedColumnType === "tiny_blob"
         ) {
           if (typeof value === "string") {
             return value;
           } else {
             return [...new Uint8Array(value as Buffer)];
           }
-        } else if (header.originalType === "geometry") {
+        } else if (normalizedColumnType === "geometry") {
           const point = value as { x: number; y: number };
           if (!Array.isArray(point) && point.x !== undefined) {
             return `POINT(${point.x} ${point.y})`;
