@@ -8,6 +8,7 @@ const BUILTIN_TIMESTAMPTZ = 1184;
 const BUILTIN_DATE = 1082;
 const BUILTIN_JSON = 114;
 const BUILTIN_JSONB = 3802;
+const BUILTIN_INTERVAL = 1186;
 
 export function setPgParser(pgTypes: any) {
   pgTypes.setTypeParser(BUILTIN_TIME, (timeStr: any) => timeStr);
@@ -16,6 +17,7 @@ export function setPgParser(pgTypes: any) {
   pgTypes.setTypeParser(BUILTIN_DATE, (timeStr: any) => timeStr);
   pgTypes.setTypeParser(BUILTIN_JSON, (json: any) => json);
   pgTypes.setTypeParser(BUILTIN_JSONB, (json: any) => json);
+  pgTypes.setTypeParser(BUILTIN_INTERVAL, (json: any) => json);
 }
 
 export function transformPgResult(pgResult: any): ResultSet {
